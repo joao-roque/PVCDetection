@@ -1,5 +1,5 @@
 %% PVC detection
-load('DATPVC/DPVC_119.mat')
+load('data/DATPVC/DPVC_119.mat')
 ecg = fullProcessing(DAT.ecg);
 e5 = ecg{5};
 
@@ -57,11 +57,23 @@ stem(DAT.ind(PVC_index), DAT.ecg(DAT.ind(PVC_index)), 'r', 'LineStyle', 'none')
 
 features = extractFeatures(DAT);
 
+%% Clustering
+
+figure;
+plot(features(find(DAT.pvc==0), 1), features(find(DAT.pvc==0), 2),'r.','MarkerSize',12)
+hold on
+plot(features(find(DAT.pvc==1), 1), features(find(DAT.pvc==1), 2),'b.','MarkerSize',12)
+
+legend('Normal','PVC',...
+       'Location','NW')
+title 'Cluster Assignments and Centroids'
+hold off
+
 %% Classify
 
 svmStruc = svmtrain(features, DAT.pvc);
 
-load('DATPVC/DPVC_106.mat');
+load('data/DATPVC/DPVC_106.mat');
 newData = extractFeatures(DAT);
 classes = svmclassify(svmStruc, newData);
 
@@ -88,7 +100,3 @@ stem(DAT.ind(PVC_index), DAT.ecg(DAT.ind(PVC_index)), 'r', 'LineStyle', 'none')
 hold on
 stem(DAT.ind(classified_PVC_index), DAT.ecg(DAT.ind(classified_PVC_index)), 'g', 'LineStyle', 'none')
 
-
-%% Oi
-
-x = 1;

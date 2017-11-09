@@ -17,7 +17,19 @@ function features = extractFeatures(DAT)
         windowDist1 = [windowDist1 diff1/DAT.ecg(i)];
         windowDist2 = [windowDist2 diff2/DAT.ecg(i)];
     end
-
-    features = [distanceToLast' windowDist1' windowDist2'];
-
+    
+    areas = [];
+    % Extract min after R peak
+    for i = 1:length(DAT.ind)
+       window = DAT.ecg(DAT.ind(i):(DAT.ind(i)+120)); 
+       [min, ind] = max(-window);
+       realMin = DAT.ind(i)+ ind - 1;
+       areas = [areas realMin - DAT.ind(i)];
+       
+    end
+    
+    features = [distanceToLast' areas'];
+%     features = [distanceToLast' windowDist1' windowDist2' areas'];
+    
+    
 end
