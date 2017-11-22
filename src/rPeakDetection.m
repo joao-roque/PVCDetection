@@ -1,9 +1,9 @@
 function correctedLocs = rPeakDetection(e5, DAT)
     %% threshold and peaks detection in power signal
-    threshold = 0.7 * mean (e5);
+    threshold = 0.5 * mean (e5);
     timeVector = [1/1000: 1/1000: length(e5)/1000]';
 
-    [peaks,locs] = findpeaks(e5, 'MinPeakDistance', 300, 'MinPeakHeight', threshold);
+    [peaks,locs] = findpeaks(e5, 'MinPeakDistance', 150, 'MinPeakHeight', threshold);
 
     peaksValid = [];
     locsValid = [];
