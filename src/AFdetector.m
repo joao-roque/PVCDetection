@@ -8,9 +8,6 @@ annot = DAT.annot;
 
 ecgFull = fullProcessing(ecg);
 e5 = ecgFull{5};
-
-%% 
-
 correctedLocs = rPeakDetection(e5,DAT);
 
 %% RR
