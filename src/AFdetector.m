@@ -48,3 +48,22 @@ plot(meanWindow)
 % ylim([-1,2])
 % hold off
 
+%% P-Wave 
+
+stdValues = [];
+
+for i = 2 : length(correctedLocs)
+    
+    [qVal, qInd] = min(ecg(correctedLocs(i)-30:correctedLocs(i)));
+    
+    realQInd = correctedLocs(i)-30 + qInd;
+    
+    stdValues = [stdValues std(ecg(realQInd-80:realQInd))]; 
+    
+    
+end
+
+
+
+
+
