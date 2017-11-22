@@ -1,4 +1,5 @@
 % AF detection
+close all
 
 load('data/DATAF/afdb_file-08219_episode-4.mat');
 
@@ -44,4 +45,31 @@ plot(meanWindow)
 % plot(class)
 % ylim([-1,2])
 % hold off
+
+%% P-Wave 
+
+[bHigh, aHigh] = butter(4,0.5/500,'high');
+
+ecg = filter(bHigh,aHigh,ecg);
+
+stdValues = [0];
+
+for i = 2 : length(correctedLocs)
+    
+    [qVal, qInd] = min(ecg(correctedLocs(i)-30:correctedLocs(i)));
+    
+    realQInd = correctedLocs(i)-30 + qInd;
+    
+    stdValues = [stdValues std(ecg(realQInd-100:realQInd))]; 
+    
+end
+
+stdValues(1) = stdValues(2);
+
+% vq1 = interp1(correctedLocs,stdValues,length(ecg));
+
+plot(correctedLocs, stdValues,'o')
+
+
+
 
