@@ -38,7 +38,7 @@ for j = 1:length(LIST)
     % Boxplot
     figure
     boxplot(features, DAT.pvc, 'Labels', {'normal', 'PVC'})
-    title 'Boxplot of area'
+    title 'Boxplot of RS interval'
     hold off
 
     %% Defined Rule
